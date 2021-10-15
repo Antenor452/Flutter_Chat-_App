@@ -1,3 +1,4 @@
+import 'package:chat_app/helper/authenticate.dart';
 import 'package:chat_app/views/signin.dart';
 import 'package:chat_app/widgets/widget.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,9 @@ class _ChatRoomState extends State<ChatRoom> {
             onPressed: () {
               authMethods.signOut().then((value) {
                 Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (context) => SignIn()));
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Authenticate()));
               });
             },
             icon: const Icon(Icons.exit_to_app))

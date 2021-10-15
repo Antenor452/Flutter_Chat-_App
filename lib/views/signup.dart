@@ -4,7 +4,8 @@ import '../widgets/widget.dart';
 import '../services/auth.dart';
 
 class SignUp extends StatefulWidget {
-  SignUp({Key? key}) : super(key: key);
+  Function? toggle;
+  SignUp({Key? key, this.toggle}) : super(key: key);
 
   @override
   _SignUpState createState() => _SignUpState();
@@ -160,12 +161,20 @@ class _SignUpState extends State<SignUp> {
                             "Already have an account?",
                             style: meduimTextStyle(),
                           ),
-                          const Text(
-                            "Sign In Now",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 17,
-                                decoration: TextDecoration.underline),
+                          GestureDetector(
+                            onTap: () {
+                              widget.toggle;
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              child: const Text(
+                                "Sign In Now",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                    decoration: TextDecoration.underline),
+                              ),
+                            ),
                           )
                         ],
                       ),

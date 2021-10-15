@@ -1,3 +1,4 @@
+import 'package:chat_app/helper/authenticate.dart';
 import 'package:chat_app/views/signin.dart';
 import 'package:chat_app/views/signup.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,6 @@ class _MyAppState extends State<MyApp> {
           scaffoldBackgroundColor: const Color(0xff1F1F1F),
           primarySwatch: Colors.blue,
         ),
-        home: SignUp());
+        home: const Authenticate());
   }
 }
