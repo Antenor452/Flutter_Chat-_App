@@ -1,3 +1,4 @@
+import 'package:chat_app/views/chatrooms.dart';
 import 'package:flutter/material.dart';
 import '../widgets/widget.dart';
 import '../services/auth.dart';
@@ -10,6 +11,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  @override
   AuthMethods authMethods = AuthMethods();
   bool isLoading = false;
   final _formkey = GlobalKey<FormState>();
@@ -23,8 +25,14 @@ class _SignUpState extends State<SignUp> {
       setState(() {
         isLoading = true;
       });
-      authMethods.signInWithEmailAndPassword(
-          emailController.text, passwordController.text);
+      authMethods
+          .signUpWithEmailAndPassword(
+              emailController.text, passwordController.text)
+          .then((value) {
+        print(value);
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => ChatRoom()));
+      });
     }
   }
 
