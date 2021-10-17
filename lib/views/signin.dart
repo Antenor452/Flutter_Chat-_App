@@ -85,8 +85,8 @@ class _SignInState extends State<SignIn> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      print('toggle');
                       widget.toggle;
+                      print('screen change');
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: 8),
