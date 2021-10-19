@@ -5,7 +5,7 @@ import '../services/database.dart';
 import '../services/auth.dart';
 
 class SignUp extends StatefulWidget {
-  Function? toggle;
+  var toggle;
   SignUp({Key? key, this.toggle}) : super(key: key);
 
   @override
@@ -46,6 +46,10 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+    void changescreen() {
+      widget.toggle();
+    }
+
     return Scaffold(
       appBar: appBarMain(context),
       body: isLoading
@@ -169,9 +173,7 @@ class _SignUpState extends State<SignUp> {
                             style: meduimTextStyle(),
                           ),
                           GestureDetector(
-                            onTap: () {
-                              widget.toggle;
-                            },
+                            onTap: changescreen,
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 8),
                               child: const Text(

@@ -4,7 +4,7 @@ import 'package:chat_app/widgets/widget.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
-  Function? toggle;
+  var toggle;
   SignIn({Key? key, this.toggle}) : super(key: key);
 
   @override
@@ -12,6 +12,10 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  void changescreen() {
+    widget.toggle();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,10 +88,7 @@ class _SignInState extends State<SignIn> {
                     style: meduimTextStyle(),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      widget.toggle;
-                      print('screen change');
-                    },
+                    onTap: changescreen,
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: 8),
                       child: Text(
