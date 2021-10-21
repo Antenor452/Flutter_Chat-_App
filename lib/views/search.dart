@@ -14,7 +14,6 @@ class _SearchScreenState extends State<SearchScreen> {
   TextEditingController searchtext = TextEditingController();
   DatabaseMethods databaseMethods = DatabaseMethods();
   QuerySnapshot? searchSnapshot;
-  Future<dynamic>? results;
 
   search() async {
     searchSnapshot = await databaseMethods.getUserByusername(searchtext.text);
@@ -41,6 +40,10 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           );
   }
+
+  //Create a chatroom,send user converstaion screen,push Replacement
+
+  createChatroomAndSendUserConvo() {}
 
   @override
   @override
@@ -94,28 +97,32 @@ class SearchTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
       child: Row(
         children: [
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 username,
-                style: simpleTextStyle(),
+                style: meduimTextStyle(),
               ),
               Text(
                 email,
-                style: simpleTextStyle(),
+                style: meduimTextStyle(),
               )
             ],
           ),
           Spacer(),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-            decoration: BoxDecoration(
-                color: Colors.blue, borderRadius: BorderRadius.circular(25)),
-            child: Text('Message'),
-          )
+          GestureDetector(
+            onTap: () {},
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+              decoration: BoxDecoration(
+                  color: Colors.blue, borderRadius: BorderRadius.circular(30)),
+              child: Text('Message', style: meduimTextStyle()),
+            ),
+          ),
         ],
       ),
     );
