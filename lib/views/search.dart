@@ -43,7 +43,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   //Create a chatroom,send user converstaion screen,push Replacement
 
-  createChatroomAndSendUserConvo() {}
+  createChatroomAndSendUserConvo(String username) {}
 
   @override
   @override
