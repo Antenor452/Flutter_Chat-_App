@@ -17,11 +17,8 @@ class _SearchScreenState extends State<SearchScreen> {
   Future<dynamic>? results;
 
   search() async {
-    /*setState(() {
-      searchSnapshot = databaseMethods.getUserByusername(searchtext.text);
-    });
-    */
     searchSnapshot = await databaseMethods.getUserByusername(searchtext.text);
+    setState(() {});
   }
 
   Widget searchlist() {
