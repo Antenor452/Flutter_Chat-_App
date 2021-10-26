@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:chat_app/services/auth.dart';
 import 'package:chat_app/widgets/widget.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,12 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<FormState> _form = GlobalKey();
+    AuthMethods authMethods = AuthMethods();
+
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+
     return Scaffold(
       appBar: appBarMain(context),
       body: Container(
@@ -28,13 +35,20 @@ class _SignInState extends State<SignIn> {
             mainAxisSize: MainAxisSize.min,
             // ignore: prefer_const_literals_to_create_immutables
             children: [
-              TextField(
-                decoration: textFieldInputDecoration('Email'),
-                style: simpleTextStyle(),
-              ),
-              TextField(
-                  decoration: textFieldInputDecoration('Password'),
-                  style: simpleTextStyle()),
+              Form(
+                  child: Column(
+                children: [
+                  TextFormField(
+                    controller: emailController,
+                    decoration: textFieldInputDecoration('Email'),
+                    style: simpleTextStyle(),
+                  ),
+                  TextFormField(
+                      controller: passwordController,
+                      decoration: textFieldInputDecoration('Password'),
+                      style: simpleTextStyle()),
+                ],
+              )),
               SizedBox(
                 height: 8,
               ),
