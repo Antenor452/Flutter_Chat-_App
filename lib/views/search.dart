@@ -1,7 +1,10 @@
+import 'package:chat_app/helper/constants.dart';
 import 'package:chat_app/services/database.dart';
+import 'package:chat_app/views/conversation_stream.dart';
 import 'package:chat_app/widgets/widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:chat_app/helper/helperfunctions.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -20,6 +23,37 @@ class _SearchScreenState extends State<SearchScreen> {
     setState(() {});
   }
 
+  getuserinfo() async {
+    Constants.myName = HelperFunctions.getusernameSharedPreference().toString();
+  }
+
+  getChatRoomId(String a, String b) {
+    if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
+      return "$b\_$a";
+    } else {
+      return "$a\_$b";
+    }
+  }
+
+  createChatRoomAndStartConversation(String username) {
+    String chatRoomId = getChatRoomId(Constants.myName, username);
+    List<String> users = [username, Constants.myName];
+    Map<String, dynamic> chatRoomMap = {
+      "chatroomid": chatRoomId,
+      "users": users
+    };
+
+    databaseMethods.createChatRoom(chatRoomId, chatRoomMap);
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const ConversationScreen()));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getuserinfo();
+  }
+
   Widget searchlist() {
     return searchSnapshot != null
         ? ListView.builder(
@@ -30,6 +64,8 @@ class _SearchScreenState extends State<SearchScreen> {
               return SearchTile(
                 username: searchSnapshot!.docs.first['name'],
                 email: searchSnapshot!.docs.first['email'],
+                createChatRoom: createChatRoomAndStartConversation(
+                    searchSnapshot!.docs.first['name']),
               );
             })
         : Container(
@@ -92,7 +128,9 @@ class _SearchScreenState extends State<SearchScreen> {
 class SearchTile extends StatelessWidget {
   final email;
   final username;
-  const SearchTile({Key? key, this.email, this.username}) : super(key: key);
+  final Function? createChatRoom;
+  const SearchTile({Key? key, this.email, this.username, this.createChatRoom})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +153,9 @@ class SearchTile extends StatelessWidget {
           ),
           Spacer(),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              createChatRoom;
+            },
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
               decoration: BoxDecoration(

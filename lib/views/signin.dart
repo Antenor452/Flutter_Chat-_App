@@ -36,11 +36,13 @@ class _SignInState extends State<SignIn> {
     Future<String> getusername(String email) async {
       userdetails = await databaseMethods.getUserByEmail(emailController.text);
       String username = userdetails!.docs.first["name"];
+      print(username);
       return username;
     }
 
     void signIn() async {
       if (formkey.currentState!.validate()) {
+        formkey.currentState!.save();
         setState(() {
           isLoading = true;
         });

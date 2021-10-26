@@ -12,11 +12,11 @@ AppBar appBarMain(BuildContext context) {
 InputDecoration textFieldInputDecoration(String hintText) {
   return InputDecoration(
       hintText: hintText,
-      hintStyle: TextStyle(color: Colors.white54),
-      focusedBorder:
-          UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-      enabledBorder:
-          UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)));
+      hintStyle: const TextStyle(color: Colors.white54),
+      focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.white)),
+      enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.white)));
 }
 
 TextStyle simpleTextStyle() {
@@ -31,7 +31,7 @@ Widget textButton(String text, Color colour, BuildContext context) {
   return Container(
     alignment: Alignment.center,
     width: MediaQuery.of(context).size.width,
-    padding: EdgeInsets.symmetric(vertical: 20),
+    padding: const EdgeInsets.symmetric(vertical: 20),
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         gradient: const LinearGradient(
