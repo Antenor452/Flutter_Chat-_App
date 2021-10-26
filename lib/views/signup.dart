@@ -1,3 +1,4 @@
+import 'package:chat_app/helper/helperfunctions.dart';
 import 'package:chat_app/views/chatrooms.dart';
 import 'package:flutter/material.dart';
 import '../widgets/widget.dart';
@@ -16,8 +17,12 @@ class _SignUpState extends State<SignUp> {
   @override
   AuthMethods authMethods = AuthMethods();
   DatabaseMethods databaseMethods = DatabaseMethods();
+  HelperFunctions helper = HelperFunctions();
+
   bool isLoading = false;
+
   final _formkey = GlobalKey<FormState>();
+
   TextEditingController userNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -28,16 +33,21 @@ class _SignUpState extends State<SignUp> {
       setState(() {
         isLoading = true;
       });
+
       authMethods
           .signUpWithEmailAndPassword(
               emailController.text, passwordController.text)
           .then((value) {
-        print(value);
         Map<String, String> userInfoMap = {
           "name": userNameController.text,
           "email": emailController.text
         };
+        HelperFunctions.saveuserEmailSharedPreference(emailController.text);
+        HelperFunctions.saveusernameSharedPreference(userNameController.text);
+
         databaseMethods.uploadUserInfo(userInfoMap);
+        HelperFunctions.saveuserLoggedInSharedPreference(true);
+
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => ChatRoom()));
       });
