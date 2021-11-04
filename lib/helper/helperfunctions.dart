@@ -39,7 +39,5 @@ class HelperFunctions {
     return prefs.getString(sharedPreferenceUserEmailKey);
   }
 
-  beans(){
-    
-  }
+  beans() {}
 }

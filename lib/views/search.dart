@@ -24,7 +24,10 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   getuserinfo() async {
-    Constants.myName = HelperFunctions.getusernameSharedPreference().toString();
+    HelperFunctions.getusernameSharedPreference().then((value) {
+      print(value);
+      Constants.myName = value.toString();
+    });
   }
 
   getChatRoomId(String a, String b) {
@@ -44,8 +47,6 @@ class _SearchScreenState extends State<SearchScreen> {
     };
 
     databaseMethods.createChatRoom(chatRoomId, chatRoomMap);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const ConversationScreen()));
   }
 
   @override
@@ -60,7 +61,6 @@ class _SearchScreenState extends State<SearchScreen> {
             shrinkWrap: true,
             itemCount: searchSnapshot!.size,
             itemBuilder: (context, index) {
-              print(searchSnapshot!.docs.first['name']);
               return SearchTile(
                 username: searchSnapshot!.docs.first['name'],
                 email: searchSnapshot!.docs.first['email'],

@@ -35,9 +35,10 @@ class _SignInState extends State<SignIn> {
     QuerySnapshot? userdetails;
     Future<String> getusername(String email) async {
       userdetails = await databaseMethods.getUserByEmail(emailController.text);
+
       String username = userdetails!.docs.first["name"];
-      print(username);
-      return username;
+
+      return username.toString();
     }
 
     void signIn() async {
@@ -49,13 +50,14 @@ class _SignInState extends State<SignIn> {
         authMethods
             .signInWithEmailAndPassword(
                 emailController.text, passwordController.text)
-            .then((value) {
+            .then((value) async {
           if (value != null) {
-            String username = getusername(emailController.text).toString();
+            getusername(emailController.text).then((value) {
+              HelperFunctions.saveusernameSharedPreference(value);
+            });
 
             HelperFunctions.saveuserLoggedInSharedPreference(true);
             HelperFunctions.saveuserEmailSharedPreference(emailController.text);
-            HelperFunctions.saveusernameSharedPreference(username);
 
             Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => ChatRoom()));
